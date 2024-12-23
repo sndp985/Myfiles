@@ -102,3 +102,7 @@ chmod +x /root/kubeadm_join_command.sh
 echo "Kubernetes cluster installation with Calico and CRI-O is complete."
 echo "Run the following command on worker nodes to join the cluster:"
 cat /root/kubeadm_join_command.sh
+
+kubeadm join <control-plane-ip>:6443 --token <token> \
+    --discovery-token-ca-cert-hash sha256:<hash> --cri-socket /var/run/crio/crio.sock
+
