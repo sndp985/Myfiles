@@ -1,0 +1,14 @@
+OS="$(. /etc/os-release && echo $VERSION_ID)"
+CRIO_VERSION="1.26"
+cat <<EOF > /etc/yum.repos.d/crio.repo
+[crio]
+name=CRI-O Repository
+baseurl=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$CRIO_VERSION/CentOS_9_Stream
+gpgcheck=1
+enabled=1
+gpgkey=https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$CRIO_VERSION/CentOS_9_Stream/repodata/repomd.xml.key
+EOF
+
+dnf install -y cri-o
+systemctl enable crio
+systemctl start crio
